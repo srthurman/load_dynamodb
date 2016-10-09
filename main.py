@@ -25,7 +25,8 @@ def run():
 						'sources': 'gn'}
 					}
 	mapzen_json = fetch_data(mapzen_search)
-	print(type(mapzen_json))
+	for row in mapzen_json['features']:
+		print(row)
 
 if __name__ == '__main__':
 	run()
