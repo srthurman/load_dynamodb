@@ -1,28 +1,37 @@
-from __future__ import print_function # Python 2/3 compatibility
 import boto3
 
 dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:8000")
+
+def insert_data(table_name, data):
+    table = dynamodb.Table(table_name)
+    try:
+        for row in data:
+            table.put_item(Item=row)
+    except Exception as e:
+        print(e)
+
+
 
 def create_table():
     table = dynamodb.create_table(
         TableName='Places',
         KeySchema=[
             {
-                'AttributeName': 'id',
+                'AttributeName': 'ID',
                 'KeyType': 'HASH'  #Partition key
             },
             {
-                'AttributeName': 'name',
+                'AttributeName': 'Place_Name',
                 'KeyType': 'RANGE'
             }
         ],
         AttributeDefinitions=[
             {
-                'AttributeName': 'id',
+                'AttributeName': 'ID',
                 'AttributeType': 'S'
             },
             {
-                'AttributeName': 'name',
+                'AttributeName': 'Place_Name',
                 'AttributeType': 'S'
             }
 
@@ -34,5 +43,3 @@ def create_table():
     )
 
     print("Table status:", table.table_status)
-
-create_table()
