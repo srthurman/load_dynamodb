@@ -12,7 +12,6 @@ def insert_data(table_name, data):
         logging.exception('Error inserting data into the database')
 
 
-
 def create_table(table_name):
     try:
         table = dynamodb.create_table(
@@ -45,5 +44,6 @@ def create_table(table_name):
         )
 
         print('Table "{}" status:'.format(table_name), table.table_status)
+
     except Exception as e:
         logging.exception('Error creating table "{}"'.format(table_name))
