@@ -33,6 +33,7 @@ def fetch_data(url_params):
 
 def run():
 	''' Entry point for the application '''
+	place_table = 'Places'
 	mapzen_search = {'url': "https://search.mapzen.com/v1/nearby",
 					'params': {
 						'layers': 'venue',
@@ -45,7 +46,7 @@ def run():
 					}
 	mapzen_json = fetch_data(mapzen_search)
 	mapzen_data_to_load = transform_data(mapzen_json['features'])
-	insert_data('Places', mapzen_data_to_load)
+	insert_data(place_table, mapzen_data_to_load)
 
 
 if __name__ == '__main__':
